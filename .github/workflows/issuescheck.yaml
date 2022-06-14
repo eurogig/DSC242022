@@ -1,0 +1,15 @@
+name: IssueTitleCheck
+on:
+  issues:
+    types: [opened]
+jobs:
+  print_issue_title:
+    runs-on: ubuntu-latest
+    name: Check issue title
+    steps:
+    - run: |
+        title="${{ github.event.issue.title }}"
+        if [[ ! $title=~.*.:\ .* ]]; then
+          echo "Bad issue title"
+          exit 1
+        fi
